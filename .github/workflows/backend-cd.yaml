@@ -34,7 +34,7 @@ jobs:
         run: pip install pipenv
 
       - name: Install dependencies
-        run: pipenv install --skip-lock
+        run: pipenv install --dev --skip-lock
 
       - name: Lint
         run: pipenv run lint
@@ -90,7 +90,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         working-directory: starter/backend
         run: |
-          docker build --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build \
+            --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   deploy:
