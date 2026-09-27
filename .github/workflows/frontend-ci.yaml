@@ -66,3 +66,9 @@ jobs:
       - run: npm ci
       - run: CI=true npm test
       - run: npm run build
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg REACT_APP_MOVIE_API_URL=http://localhost:5000 \
+            --tag mp-frontend:ci-test .
